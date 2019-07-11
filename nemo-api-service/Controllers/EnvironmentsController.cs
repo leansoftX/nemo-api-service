@@ -2,42 +2,39 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using k8s;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using k8s;
 
 namespace nemo_api_service.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class NamespacesController : ControllerBase
+    public class EnvironmentsController : Controller
     {
         private readonly IKubernetes _client = library.Base.getClient();
 
-       
-        // GET: api/Namespaces
+        // GET: api/Environments
         [HttpGet]
-        public IActionResult Get()
+        public IEnumerable<string> Get()
         {
-          
-            var namespaces = _client.ListNamespace();
-            return Ok(namespaces.Items);
+            return new string[] { "value1", "value2" };
         }
 
-        // GET: api/Namespaces/5
-        [HttpGet("{name}", Name = "Get")]
-        public string Get(string name)
+        [HttpGet("GetByName/{name}")]
+        public string GetByName(string name)
         {
-            return "value";
+            var ns = _client.ReadNamespace(name);
+            return ns.Metadata.Name;
         }
 
-        // POST: api/Namespaces
+        // POST: api/Environments
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT: api/Namespaces/5
+        // PUT: api/Environments/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
