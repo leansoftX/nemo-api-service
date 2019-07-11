@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nemo-api-service-deployment
+spec:
+  selector:
+    matchLabels:
+      app: nemo-api-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nemo-api-service
+    spec:
+      containers:
+      - name: lion
+        image: devopslabs.azurecr.io/nemo-api-service:%{Build.BuildId}%
+        env:
+        - name: TZ
+          value: "Asia/Shanghai"
+
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+        - name: devopslabskey
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nemo-api-service-svc
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: nemo-api-service
