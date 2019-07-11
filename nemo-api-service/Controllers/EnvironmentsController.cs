@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using k8s;
+using k8s.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using nemo_api_service.Models;
 
 namespace nemo_api_service.Controllers
 {
@@ -22,10 +24,25 @@ namespace nemo_api_service.Controllers
         }
 
         [HttpGet("GetByName/{name}")]
-        public string GetByName(string name)
+        public IActionResult GetByName(string name)
         {
             var ns = _client.ReadNamespace(name);
-            return ns.Metadata.Name;
+            var services = _client.ListNamespacedService(ns.Metadata.Name);
+            var enviroment = new Enviroment();
+            var loadBalancerService = new V1Service();
+            foreach (var service in services.Items)
+            {
+                if (service.Spec.Type == "LoadBalancer")
+                {
+                    loadBalancerService = service;
+                }
+            }
+
+            enviroment.Name = ns.Metadata.Name;
+            enviroment.Status = ns.Status.Phase;
+            enviroment.URL = loadBalancerService.Status.LoadBalancer.Ingress[0].Ip;
+            return Ok(enviroment);
+
         }
 
         // POST: api/Environments
