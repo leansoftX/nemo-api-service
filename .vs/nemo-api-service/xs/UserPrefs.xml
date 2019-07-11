@@ -1,0 +1,14 @@
+﻿<Properties StartupConfiguration="{205A672E-72FF-42F6-A8FE-9949A6B11DD5}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="nemo-api-service/Controllers/ValuesController.cs">
+    <Files>
+      <File FileName="nemo-api-service/Controllers/ValuesController.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.nemo-api-service PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
+</Properties>
