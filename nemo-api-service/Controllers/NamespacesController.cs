@@ -12,20 +12,21 @@ namespace nemo_api_service.Controllers
     [ApiController]
     public class NamespacesController : ControllerBase
     {
-        
+        private readonly IKubernetes _client = library.Base.getClient();
 
+       
         // GET: api/Namespaces
         [HttpGet]
         public IActionResult Get()
         {
-            var client = library.Base.getClient();
-            var namespaces = client.ListNamespace();
+          
+            var namespaces = _client.ListNamespace();
             return Ok(namespaces.Items);
         }
 
         // GET: api/Namespaces/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{name}", Name = "Get")]
+        public string Get(string name)
         {
             return "value";
         }
