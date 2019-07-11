@@ -2,6 +2,7 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="nemo-api-service/Controllers/ValuesController.cs">
     <Files>
       <File FileName="nemo-api-service/Controllers/ValuesController.cs" Line="1" Column="1" />
+      <File FileName="nemo-api-service/Startup.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
