@@ -28,7 +28,6 @@ namespace nemo_api_service.Controllers
         {
             var ns = _client.ReadNamespace(name);
             var services = _client.ListNamespacedService(ns.Metadata.Name);
-            var enviroment = new Enviroment();
             var loadBalancerService = new V1Service();
             foreach (var service in services.Items)
             {
@@ -37,10 +36,13 @@ namespace nemo_api_service.Controllers
                     loadBalancerService = service;
                 }
             }
+            var enviroment = new Enviroment
+            {
+                Name = ns.Metadata.Name,
+                Status = ns.Status.Phase,
+                URL = loadBalancerService.Status.LoadBalancer.Ingress[0].Ip
+            };
 
-            enviroment.Name = ns.Metadata.Name;
-            enviroment.Status = ns.Status.Phase;
-            enviroment.URL = loadBalancerService.Status.LoadBalancer.Ingress[0].Ip;
             return Ok(enviroment);
 
         }
