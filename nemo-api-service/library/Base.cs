@@ -7,8 +7,8 @@ namespace nemo_api_service.library
 {
     public static class Base {
         public static IKubernetes getClient()
-        {
-            var config = KubernetesClientConfiguration.BuildConfigFromConfigFile();
+        {            
+            var config = KubernetesClientConfiguration.BuildConfigFromConfigFile("wwwroot/config.txt");
             var client = new Kubernetes(config);
             return client;
         }
