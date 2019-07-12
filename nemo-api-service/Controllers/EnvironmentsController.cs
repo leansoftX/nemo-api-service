@@ -47,6 +47,21 @@ namespace nemo_api_service.Controllers
 
         }
 
+        [HttpGet("DeleteByName/{name}")]
+        public IActionResult DeleteByName(string name)
+        {
+             var status =_client.DeleteNamespace(name);
+             return Ok(status);
+       
+        }
+
+        [HttpGet("GetStatusByName/{name}")]
+        public IActionResult GetStatusByName(string name)
+        {
+            var status = _client.ReadNamespaceStatus(name);
+            return Ok(status);
+        }
+
         // POST: api/Environments
         [HttpPost]
         public void Post([FromBody] string value)
