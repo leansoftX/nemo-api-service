@@ -62,6 +62,22 @@ namespace nemo_api_service.Controllers
             return Ok(status);
         }
 
+        [HttpGet("IsExist/{name}")]
+        public IActionResult IsExist(string name)
+        {
+            var result = false;
+            var namespaces = _client.ListNamespace();
+            foreach (var item in namespaces.Items)
+            {
+                if (item.Metadata.Name == name)
+                {
+                    result = true;
+                }
+            }
+
+            return Ok(result);
+        }
+
         // POST: api/Environments
         [HttpPost]
         public void Post([FromBody] string value)
