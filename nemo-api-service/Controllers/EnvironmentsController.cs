@@ -40,6 +40,9 @@ namespace nemo_api_service.Controllers
             {
                 Name = ns.Metadata.Name,
                 Status = ns.Status.Phase,
+                CreateDate=ns.Metadata.CreationTimestamp.ToString(),
+                ServiceName=loadBalancerService.Metadata.Name,
+                ServiceIP= loadBalancerService.Status.LoadBalancer.Ingress[0].Ip,
                 URL = loadBalancerService.Status.LoadBalancer.Ingress[0].Ip
             };
 
