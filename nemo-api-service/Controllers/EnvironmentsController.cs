@@ -18,9 +18,10 @@ namespace nemo_api_service.Controllers
 
         // GET: api/Environments
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            var ns = _client.ListNamespace(null, null, "createdfrom=nemo");
+            return Ok(ns.Items);
         }
 
         [HttpGet("GetByName/{name}")]
