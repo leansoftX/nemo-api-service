@@ -29,22 +29,15 @@ namespace nemo_api_service.Controllers
         {
             var ns = _client.ReadNamespace(name);
             var services = _client.ListNamespacedService(ns.Metadata.Name);
-            var loadBalancerService = new V1Service();
-            foreach (var service in services.Items)
-            {
-                if (service.Spec.Type == "LoadBalancer")
-                {
-                    loadBalancerService = service;
-                }
-            }
+            var deployments = _client.ListNamespacedDeployment(ns.Metadata.Name);
+           
             var enviroment = new Enviroment
             {
                 Name = ns.Metadata.Name,
                 Status = ns.Status.Phase,
                 CreateDate=ns.Metadata.CreationTimestamp.ToString(),
-                ServiceName=loadBalancerService.Metadata.Name,
-                ServiceIP= loadBalancerService.Status.LoadBalancer.Ingress[0].Ip,
-                URL = loadBalancerService.Status.LoadBalancer.Ingress[0].Ip
+                Services=services.Items,
+                Deployments=deployments.Items
             };
 
             return Ok(enviroment);
