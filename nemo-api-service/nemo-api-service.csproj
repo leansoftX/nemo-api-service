@@ -14,9 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="wwwroot\config.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>
