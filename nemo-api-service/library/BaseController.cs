@@ -16,7 +16,9 @@ namespace nemo_api_service.library
         {
             var _httpContextAccessor = httpContextAccessor;
             var header = _httpContextAccessor.HttpContext.Request.Headers;
-            var kubeConfigContent= header["kubeConfig"];
+            
+            byte[] kubeConfigContentByte= Convert.FromBase64String(header["kubeConfig"]);
+            var kubeConfigContent = System.Text.Encoding.Default.GetString(kubeConfigContentByte);
             Stream kubeConfig = Utilities.GenerateStreamFromString(kubeConfigContent);
             var config = KubernetesClientConfiguration.BuildConfigFromConfigFile(kubeConfig);
             _client = new Kubernetes(config);

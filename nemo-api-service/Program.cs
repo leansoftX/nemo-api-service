@@ -19,6 +19,7 @@ namespace nemo_api_service
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                .UseKestrel(options => { options.Limits.MaxRequestHeaderCount = 100; options.Limits.MaxRequestHeadersTotalSize = 100 * 1024; });
     }
 }
