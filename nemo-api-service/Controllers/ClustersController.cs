@@ -9,8 +9,13 @@ namespace nemo_api_service.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClustersController : ControllerBase
+    public class ClustersController : library.BaseController
     {
+        public ClustersController(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
+        {
+
+        }
+
         // GET: api/Clusters
         [HttpGet]
         public IEnumerable<string> Get()

@@ -12,9 +12,14 @@ namespace nemo_api_service.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EnvironmentsController : Controller
+    public class EnvironmentsController : library.BaseController
     {
-        private readonly IKubernetes _client = library.Base.getClient();
+
+        public EnvironmentsController(IHttpContextAccessor httpContextAccessor):base(httpContextAccessor)
+        {
+          
+        }
+
 
         // GET: api/Environments
         [HttpGet]
