@@ -49,6 +49,31 @@ namespace nemo_api_service.Controllers
 
         }
 
+        [HttpGet("GetEnvironmentList")]
+        public IActionResult GetEnvironmentList()
+        {
+            var result=new List<Models.Enviroment>();
+            var nsList = _client.ListNamespace(null, null, "createdfrom=nemo");
+            foreach (var item in nsList.Items)
+            {
+                var services = _client.ListNamespacedService(item.Metadata.Name);
+                var deployments = _client.ListNamespacedDeployment(item.Metadata.Name);
+                result.Add(new Enviroment
+                {
+                    Name = item.Metadata.Name,
+                    Status = item.Status.Phase,
+                    CreateDate = item.Metadata.CreationTimestamp.ToString(),
+                    Services = services.Items,
+                    Deployments = deployments.Items
+                });
+            }
+          
+
+            return Ok(result);
+
+        }
+
+
         [HttpGet("DeleteByName/{name}")]
         public IActionResult DeleteByName(string name)
         {
