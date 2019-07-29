@@ -45,6 +45,7 @@ namespace nemo_api_service
             }
 
             app.UseHttpsRedirection();
+            app.UseCors();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(name: "default", template: "api/{contoller}/{action=Index}/{id?}");
